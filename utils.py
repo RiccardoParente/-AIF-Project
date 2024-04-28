@@ -47,13 +47,16 @@ def get_action(action):
         key = action[idx1 + 5: idx2]
     return ACTIONS[key]
 
-def show_match(states: list):
-    image = plt.imshow(states[0][115:275, 480:750])
+def show_match(states, is_little):
+    start = states[0]
+    if (is_little):
+        start = states[0][115:275, 480:750]
+    image = plt.imshow(start)
     for state in states[1:]:
         time.sleep(0.25)
         display.display(plt.gcf())
         display.clear_output(wait=True)
-        image.set_data(state[115:275, 480:750])
+        image.set_data(state[115:275, 480:750] if is_little else state[50:325, 480:800])
     time.sleep(0.25)
     display.display(plt.gcf())
     display.clear_output(wait=True)

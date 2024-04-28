@@ -4,6 +4,7 @@
 :- dynamic is_closed/1.
 :- dynamic is_wall/2.
 :- dynamic explored/2.
+:- dynamic has_entered/0.
 
 action(open_door) :- has(agent, key),
                     position(agent, AgentR, AgentC),
@@ -37,7 +38,7 @@ next_direction(R1, C1, R2, C2, D) :-
                 ( C1 > C2 -> D = southwest; D = southeast )
     ))).
 
-next_goal(Goal) :- is_closed(door) -> (has(agent, key) -> Goal = door; Goal = key); Goal = exit.
+next_goal(Goal) :- is_closed(door) -> (has(agent, key) -> Goal = door; Goal = key); has_entered(agent) -> Goal = exit; Goal = door.
 
 is_walkable(R, C, D, Direction) :- resulting_position(R, C, NewR, NewC, D),
                                     ((is_wall(NewR, NewC); (position(door, NewR, NewC), is_closed(door))) -> (close_direction(D, ND), is_walkable(R, C, ND, Direction));

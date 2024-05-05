@@ -47,8 +47,8 @@ def get_action(action):
         key = action[idx1 + 5: idx2]
     return ACTIONS[key]
 
-def show_match(states, is_little):
-    start = states[0]
+def plot_sequence(states, is_little):
+    start = states[0][50:325, 480:800]
     if (is_little):
         start = states[0][115:275, 480:750]
     image = plt.imshow(start)
